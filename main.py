@@ -4,6 +4,9 @@ import itertools
 from lightfm.data import Dataset
 from recommenders.datasets import movielens
 from recommenders.models.lightfm.lightfm_utils import  (similar_users, similar_items)
+# import sys
+# import numpy
+# numpy.set_printoptions(threshold=sys.maxsize)
 
 # Select MovieLens data size
 MOVIELENS_DATA_SIZE = '100k'
@@ -43,6 +46,7 @@ item_features = dataset2.build_item_features(
 
 _, user_embeddings = model2.get_user_representations(features=user_features)
 user_embeddings
+
 
 result_user = similar_users(user_id=1, user_features=user_features,
             model=model2)
