@@ -221,6 +221,7 @@ print(
 output1, _ = track_model_metrics(model=model1, train_interactions=train_interactions,
                               test_interactions=test_interactions, k=K,
                               no_epochs=NO_EPOCHS, no_threads=NO_THREADS)
+
 output2, _ = track_model_metrics(model=model2, train_interactions=train_interactions2,
                               test_interactions=test_interactions2, k=K,
                               no_epochs=NO_EPOCHS, no_threads=NO_THREADS,
