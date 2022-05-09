@@ -7,6 +7,9 @@ from tkinter import messagebox
 from PIL import ImageTk,Image
 import pandas as pd
 import main
+from recommenders.datasets import movielens
+
+MOVIELENS_DATA_SIZE = '100k'
 # def getNameMovie():
 data_item_URL = 'https://files.grouplens.org/datasets/movielens/ml-100k/u.item'
 data_item = pd.read_table(data_item_URL,
@@ -23,6 +26,12 @@ a = movieResult.nameMovie
 NameMovie= a.to_numpy()
 DataMovie = NameMovie.tolist();
 print(len(DataMovie))
+
+data = movielens.load_pandas_df(
+    size=MOVIELENS_DATA_SIZE,
+    genres_col='genre',
+    header=["userID", "itemID", "rating"]
+)
 
 def getId_Item():
     n = combb1.get();
@@ -41,7 +50,7 @@ def Recommender():
     itemId = getId_Item()+1
     # print("itemId",getId_Item()+1)
     # print("iduser",iduser)
-    resultRecommender = main.test(int(iduser),itemId)
+    resultRecommender = main.test(int(iduser),itemId,data)
     print("nè nè")
     Result = resultRecommender.tolist();
     if(len(Result) > 0):

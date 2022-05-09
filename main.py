@@ -9,16 +9,16 @@ from recommenders.models.lightfm.lightfm_utils import  (similar_users, similar_i
 # numpy.set_printoptions(threshold=sys.maxsize)
 
 # Select MovieLens data size
-def test(iduser,itemId):
-    MOVIELENS_DATA_SIZE = '100k'
+def test(iduser,itemId,data):
+    # MOVIELENS_DATA_SIZE = '100k'
 
     model2 = pickle.load(open("model.pkl", "rb"))
 
-    data = movielens.load_pandas_df(
-        size=MOVIELENS_DATA_SIZE,
-        genres_col='genre',
-        header=["userID", "itemID", "rating"]
-    )
+    # data = movielens.load_pandas_df(
+    #     size=MOVIELENS_DATA_SIZE,
+    #     genres_col='genre',
+    #     header=["userID", "itemID", "rating"]
+    # )
     # split the genre based on the separator
     movie_genre = [x.split('|') for x in data['genre']]
 
@@ -65,10 +65,8 @@ def test(iduser,itemId):
                          'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy', 'Film-Noir', 'Horror', 'Musical',
                          'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'War', 'Western', 'unknown']
 
-    print('lan 0')
-    print(str(data_item.sample(15)))
-
-    new_data2 = result_item.merge(data_item[['itemID', 'nameMovie']], left_on='itemID', right_on='itemID')
+    new_data2 = result_item.merge(data_item[['itemID', 'nameMovie','year']], left_on='itemID', right_on='itemID')
+    print(new_data2)
     # new_data3 = result_user.merge()
 
     # print("xin chao")

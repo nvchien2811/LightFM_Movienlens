@@ -233,5 +233,6 @@ for i in ['Precision', 'Recall']:
     sns.scatterplot(x="epoch", y="value", hue='data',
                 data=compare_metric(df_list = [output1, output2], metric=i)
                ).set_title(f'{i} comparison using test set');
-
+plt.show()
 pickle.dump(model2, open("model.pkl", "wb"))
+pickle.dump(model1, open("model1.pkl", "wb"))
