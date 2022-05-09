@@ -51,7 +51,9 @@ def test(iduser,itemId,data):
 
     result_user = similar_users(user_id=iduser, user_features=user_features,
                                 model=model2)
-    print(result_user)
+    new_User = result_user.merge(user_data[['userID', 'age', 'gender', 'occupation', 'zipcode']], left_on='userID',
+                                 right_on='userID')
+    print(new_User)
     _, item_embeddings = model2.get_item_representations(features=item_features)
     item_embeddings
 
