@@ -44,9 +44,10 @@ def getId_Item():
     return i
 
 def Recommender():
-    iduser = inputIduser.get(1.0, "end-1c")
-    if(len(iduser) < 1):
-        messagebox.showinfo("Recommender System", "Vui lòng nhập id của bạn !")
+    # iduser = inputIduser.get(1.0, "end-1c")
+    iduser = 2
+    # if(len(iduser) < 1):
+    #     messagebox.showinfo("Recommender System", "Vui lòng nhập id của bạn !")
     itemId = getId_Item()+1
     # print("itemId",getId_Item()+1)
     # print("iduser",iduser)
@@ -135,20 +136,20 @@ labelframeEnter.place(x = 10, y = 10)
 
 # choose iduser
 labtexNameIDuser = Label(labelframeEnter,text="Nhập idUser của bạn:",fg= "red",bg= 'white' ,font= "Time 10 bold")
-labtexNameIDuser.place(x=5,y=10)
+# labtexNameIDuser.place(x=5,y=10)
 inputIduser = tk.Text(labelframeEnter,height = 1, width = 32)
-inputIduser.place(x=5, y = 35)
+# inputIduser.place(x=5, y = 35)
 # choose the film name
 
 labtexNameNameFilm = Label(labelframeEnter,text="Chọn bộ phim muốn xem :",fg= "red",bg= 'white' ,font= "Time 10 bold")
-labtexNameNameFilm.place(x=5,y=60)
+labtexNameNameFilm.place(x=5,y=10)
 combb1 = CB.Combobox(labelframeEnter, width = 35, height = 9, font = "Time 10 bold",state = "readonly")
 combb1['values'] = (DataMovie)
 combb1.current(1)
-combb1.place(x= 5, y = 80)
+combb1.place(x= 5, y = 40)
 # button recommender
 btn =Button(labelframeEnter, text = "Gợi ý phim", font = "Time 10 bold", bg = "green", fg = "white", command =Recommender)
-btn.place(x= 110, y= 150)
+btn.place(x= 110, y= 110)
 #result recommender
 labelframeOutput=LabelFrame(labelframeContent,text="Kết quả hệ thống gợi ý bộ phim liên quan",fg = 'blue',font= "Time 8 bold",width=630,
              height=340,highlightcolor="yellow",bg="white",
