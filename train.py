@@ -1,7 +1,5 @@
 import pickle
 import sys
-import os
-
 import itertools
 import pandas as pd
 import numpy as np
@@ -143,7 +141,7 @@ all_movie_genre = sorted(list(set(itertools.chain.from_iterable(movie_genre))))
 # quick look at the all the genres within the data
 all_movie_genre
 
-user_feature_URL = 'https://files.grouplens.org/datasets/movielens/ml-100k/u.user'
+user_feature_URL = 'ml-100k/u.user'
 user_data = pd.read_table(user_feature_URL,
               sep='|', header=None)
 user_data.columns = ['userID','age','gender','occupation','zipcode']
@@ -244,19 +242,5 @@ plt.show()
 pickle.dump(model2, open("model.pkl", "wb"))
 pickle.dump(model1, open("model1.pkl", "wb"))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# model 1 sử dụng rating để đánh giá
-# model 2 sử dụng rating ngầm định với rating
+# model 1 using only explicit ratings
+# model 2 using both implicit and explicit ratings

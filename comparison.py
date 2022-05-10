@@ -50,7 +50,7 @@ movie_genre = [x.split('|') for x in data['genre']]
 # retrieve the all the unique genres in the data
 all_movie_genre = sorted(list(set(itertools.chain.from_iterable(movie_genre))))
 
-user_feature_URL = 'https://files.grouplens.org/datasets/movielens/ml-100k/u.user'
+user_feature_URL = 'ml-100k/u.user'
 user_data = pd.read_table(user_feature_URL,
               sep='|', header=None)
 user_data.columns = ['userID','age','gender','occupation','zipcode']

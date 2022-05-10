@@ -4,9 +4,13 @@ import itertools
 from lightfm.data import Dataset
 from recommenders.datasets import movielens
 from recommenders.models.lightfm.lightfm_utils import  (similar_users, similar_items)
-# import sys
-# import numpy
-# numpy.set_printoptions(threshold=sys.maxsize)
+import numpy as np
+from lightfm.datasets import fetch_movielens
+
+
+import sys
+import numpy
+numpy.set_printoptions(threshold=sys.maxsize)
 
 # Select MovieLens data size
 def test(iduser,itemId,data):
@@ -25,7 +29,7 @@ def test(iduser,itemId,data):
     # truy xuất tất cả các thể loại trong dữ liệu
     all_movie_genre = sorted(list(set(itertools.chain.from_iterable(movie_genre))))
     # truy xuất data từ từ web
-    user_feature_URL = 'https://files.grouplens.org/datasets/movielens/ml-100k/u.user'
+    user_feature_URL = 'ml-100k/u.user'
     # user_feature_URL = 'ml-100k/u.user'
     user_data = pd.read_table(user_feature_URL,
                               sep='|', header=None)
@@ -64,7 +68,7 @@ def test(iduser,itemId,data):
     result_item = similar_items(item_id=itemId, item_features=item_features,
                                 model=model2)
 
-    data_item_URL = 'https://files.grouplens.org/datasets/movielens/ml-100k/u.item'
+    data_item_URL = 'ml-100k/u.item'
     data_item = pd.read_table(data_item_URL,
                               sep='|', header=None, encoding="windows-1251")
     data_item.columns = ['itemID', 'nameMovie', 'year', 'none', 'url', 'Action', 'Adventure', 'Animation', "Children's",
@@ -72,7 +76,6 @@ def test(iduser,itemId,data):
                          'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'War', 'Western', 'unknown']
 
     new_data2 = result_item.merge(data_item[['itemID', 'nameMovie','year']], left_on='itemID', right_on='itemID')
-    print(new_data2)
     # new_data3 = result_user.merge()
     # print("xin chao")
     a = pd.DataFrame(new_data2, columns=['itemID','nameMovie', 'year','url'])
@@ -85,6 +88,29 @@ def test(iduser,itemId,data):
     return result_recomender
 # test(1,997)
 # print("finish")
+
+def sample_recommendation(user_ids):
+    model = pickle.load(open("model.pkl", "rb"))
+    data = fetch_movielens(min_rating=5.0)
+
+    n_users, n_items = data['train'].shape
+
+    for user_id in user_ids:
+        known_positives = data['item_labels'][data['train'].tocsr()[user_id].indices]
+
+        scores = model.predict(user_id, np.arange(n_items))
+        top_items = data['item_labels'][np.argsort(-scores)]
+
+        print("User %s" % user_id)
+        print("     Known positives:")
+
+        for x in known_positives[:3]:
+            print("        %s" % x)
+
+        print("     Recommended:")
+
+        for x in top_items[:3]:
+            print("        %s" % x)
 
 
 
