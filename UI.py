@@ -23,7 +23,8 @@ print('lan 0')
 # print(type(data_item))
 movieResult = pd.DataFrame(data_item, columns=['itemID', 'nameMovie', 'year'])
 a = movieResult.nameMovie
-NameMovie= a.to_numpy()
+# pandas.core.frame.DataFrame
+NameMovie = a.to_numpy()
 DataMovie = NameMovie.tolist();
 print(len(DataMovie))
 
@@ -117,10 +118,10 @@ labtexLSH.place(x=130,y=57)
 
 # TOPIC
 labtexTopic = Label(app,text="BÁO CÁO ĐỒ ÁN MÔN HỌC CHUYÊN ĐỀ 6",fg= "black",bg= 'white' ,font= "Time 18 bold")
-labtexTopic.place(x=320,y=90)
+labtexTopic.place(x=300,y=90)
 # LightFM/Hybrid Matrix Factorization
 labtexNameTopic = Label(app,text="LIGHTFM/HYBRID MATRIX FACTORIZATION TRONG MOVILENS",fg= "black",bg= 'white' ,font= "Time 18 bold")
-labtexNameTopic.place(x=230,y=125)
+labtexNameTopic.place(x=200,y=125)
 
 # Content
 labelframeContent=LabelFrame(app,text="Recommender system",fg = 'red',font= "Time 8 bold",width=1000,

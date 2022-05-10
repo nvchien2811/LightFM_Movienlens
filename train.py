@@ -59,27 +59,33 @@ data = movielens.load_pandas_df(
 )
 # quick look at the data
 data.sample(5)
+# tạo data chứa ma trận tương tác
 dataset = Dataset()
+# method tạo ánh xạ id người dùng và item
 dataset.fit(users=data['userID'],
             items=data['itemID'])
 
-# quick check to determine the number of unique users and items in the data
+# kiểm tra nhanh để xác định số lượng người dùng duy nhất và các mục trong dữ liệu
 num_users, num_topics = dataset.interactions_shape()
 print(f'Num users: {num_users}, num_topics: {num_topics}.')
+# xây dựng ma trận tương tác, ma trận tương tác và ma trận trọng số.
 (interactions, weights) = dataset.build_interactions(data.iloc[:, 0:3].values)
-
+# cross_validation.random_train_test_split để tách dữ liệu tương tác và chia nó thành hai tập training và test riêng biệt.
 train_interactions, test_interactions = cross_validation.random_train_test_split(
     interactions, test_percentage=TEST_PERCENTAGE,
     random_state=np.random.RandomState(SEEDNO))
 
+# Kiểm tra kích thước training và bộ test
 print(f"Shape of train interactions: {train_interactions.shape}")
 print(f"Shape of test interactions: {test_interactions.shape}")
-
+#
 model1 = LightFM(loss='warp', no_components=NO_COMPONENTS,
                  learning_rate=LEARNING_RATE,
                  random_state=np.random.RandomState(SEEDNO))
 model1.fit(interactions=train_interactions,
           epochs=NO_EPOCHS);
+# đánh giá mô hình. các chỉ số train / test cần được trích xuất từ phương thức lightfm.cross_validation
+# 25 test 75 training
 
 uids, iids, interaction_data = cross_validation._shuffle(
     interactions.row, interactions.col, interactions.data,
@@ -88,8 +94,9 @@ uids, iids, interaction_data = cross_validation._shuffle(
 cutoff = int((1.0 - TEST_PERCENTAGE) * len(uids))
 test_idx = slice(cutoff, None)
 
+# ánh xạ giữa đại diện bên trong và bên ngoài của người dùng
 uid_map, ufeature_map, iid_map, ifeature_map = dataset.mapping()
-
+# Khi chỉ số train / test và ánh xạ đã có, ta xây dựng hàm test
 with Timer() as test_time:
     test_df = prepare_test_df(test_idx, uids, iids, uid_map, iid_map, weights)
 print(f"Took {test_time.interval:.1f} seconds for prepare and predict test data.")
@@ -236,3 +243,20 @@ for i in ['Precision', 'Recall']:
 plt.show()
 pickle.dump(model2, open("model.pkl", "wb"))
 pickle.dump(model1, open("model1.pkl", "wb"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# model 1 sử dụng rating để đánh giá
+# model 2 sử dụng rating ngầm định với rating
