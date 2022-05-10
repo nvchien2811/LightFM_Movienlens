@@ -50,41 +50,43 @@ def Recommender():
     # iduser = 2
     if(len(iduser) < 1):
         messagebox.showinfo("Recommender System", "Vui lòng nhập id của bạn !")
-    itemId = getId_Item()+1
-    # print("itemId",getId_Item()+1)
-    # print("iduser",iduser)
-    resultRecommender = main.test(int(iduser),itemId,data)
-
-    main.sample_recommendation([int(iduser)])
-
-    Result = resultRecommender.tolist();
-    if(len(Result) > 0):
-        result1.config(text= Result[0][1])
-        result2.config(text=Result[1][1])
-        result3.config(text=Result[2][1])
-        result4.config(text=Result[3][1])
-        result5.config(text=Result[4][1],fg= "black",bg= 'white' ,font= "Time 10 bold")
-        result6.config(text=Result[5][1])
-        result7.config(text=Result[6][1])
-        result8.config(text=Result[7][1])
-        result9.config(text=Result[8][1])
-        result10.config(text=Result[9][1])
-
-        resultCollumName.place(x=5, y=10)
-        result1.place(x=5, y=45)
-        result2.place(x=5, y=65)
-        result3.place(x=5, y=85)
-        result4.place(x=5, y=105)
-        result5.place(x=5, y=125)
-        result6.place(x=5, y=145)
-        result7.place(x=5, y=165)
-        result8.place(x=5, y=185)
-        result9.place(x=5, y=205)
-        result10.place(x=5, y=225)
-
-        print(resultRecommender.tolist())
+    elif(iduser.isnumeric() == False):
+        messagebox.showinfo("Recommender System", "Vui lòng nhập đúng id của bạn !")
     else:
-        print("có lỗi rồi")
+        itemId = getId_Item()+1
+        # print("itemId",getId_Item()+1)
+        # print("iduser",iduser)
+        resultRecommender = main.test(int(iduser),itemId,data)
+        main.sample_recommendation([int(iduser)])
+
+        Result = resultRecommender.tolist();
+        if(len(Result) > 0):
+            result1.config(text= Result[0][1])
+            result2.config(text=Result[1][1])
+            result3.config(text=Result[2][1])
+            result4.config(text=Result[3][1])
+            result5.config(text=Result[4][1],fg= "black",bg= 'white' ,font= "Time 10 bold")
+            result6.config(text=Result[5][1])
+            result7.config(text=Result[6][1])
+            result8.config(text=Result[7][1])
+            result9.config(text=Result[8][1])
+            result10.config(text=Result[9][1])
+
+            resultCollumName.place(x=5, y=10)
+            result1.place(x=5, y=45)
+            result2.place(x=5, y=65)
+            result3.place(x=5, y=85)
+            result4.place(x=5, y=105)
+            result5.place(x=5, y=125)
+            result6.place(x=5, y=145)
+            result7.place(x=5, y=165)
+            result8.place(x=5, y=185)
+            result9.place(x=5, y=205)
+            result10.place(x=5, y=225)
+
+            print(resultRecommender.tolist())
+        else:
+            print("có lỗi rồi")
 
 
 
@@ -123,7 +125,7 @@ labtexLSH.place(x=130,y=57)
 labtexTopic = Label(app,text="BÁO CÁO ĐỒ ÁN MÔN HỌC CHUYÊN ĐỀ 6",fg= "black",bg= 'white' ,font= "Time 18 bold")
 labtexTopic.place(x=300,y=90)
 # LightFM/Hybrid Matrix Factorization
-labtexNameTopic = Label(app,text="LIGHTFM/HYBRID MATRIX FACTORIZATION TRONG MOVILENS",fg= "black",bg= 'white' ,font= "Time 18 bold")
+labtexNameTopic = Label(app,text="LIGHTFM/HYBRID MATRIX FACTORIZATION CHO MOVILENS",fg= "black",bg= 'white' ,font= "Time 18 bold")
 labtexNameTopic.place(x=200,y=125)
 
 # Content
@@ -154,6 +156,7 @@ combb1.place(x= 5, y = 100)
 # button recommender
 btn =Button(labelframeEnter, text = "Gợi ý phim", font = "Time 10 bold", bg = "green", fg = "white", command =Recommender)
 btn.place(x= 110, y= 150)
+
 #result recommender
 labelframeOutput=LabelFrame(labelframeContent,text="Kết quả hệ thống gợi ý bộ phim liên quan",fg = 'blue',font= "Time 8 bold",width=630,
              height=340,highlightcolor="yellow",bg="white",

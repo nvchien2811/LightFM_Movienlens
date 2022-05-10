@@ -92,7 +92,6 @@ def test(iduser,itemId,data):
 def sample_recommendation(user_ids):
     model = pickle.load(open("model.pkl", "rb"))
     data = fetch_movielens(min_rating=5.0)
-
     n_users, n_items = data['train'].shape
 
     for user_id in user_ids:
